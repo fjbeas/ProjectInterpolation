@@ -30,8 +30,9 @@ class Server
             NetworkStream con = new NetworkStream(serverSock);
             StreamWriter wr = new StreamWriter(con);
             StreamReader rd = new StreamReader(con);
-            entrada = (rd.ReadLine());
- 
+
+            entrada = (rd.ReadLine()); // lagrange|cubic|4|5|1|4|7|8|4|7|1|9|         FORMATO DE ENTRADA
+
             array1= entrada.Split('|'); // llamando metodo split
             List<string> list = new List<string>(array1); // Constructor de listas
 
@@ -62,7 +63,7 @@ class Server
                 list.Add(Convert.ToString(lg.lagrange_metodo(fx, x, y)));
             }
             else
-                list.Add("no");
+                list.Add("N/A");
 
             if (cubic=="cubic")
             {
@@ -72,20 +73,19 @@ class Server
             }
             else
             {
-                list.Add("no");
-                list.Add("no");
+                list.Add("N/A");
+                list.Add("N/A");
             }
 
             StringBuilder builder = new StringBuilder();
-            foreach (string value in list) 
+            foreach (string value in list) // Loop through all strings
             {
-                builder.Append(value).Append("|"); 
+                builder.Append(value).Append("|"); // Append string to StringBuilder
             }
             result = builder.ToString();
-  
 
+            Console.WriteLine(result);
             wr.WriteLine(result);
-            Console.ReadKey();
             wr.Flush();
 
             rd.Close();
