@@ -3,14 +3,13 @@ using System.Collections.Generic;
 using System.Text;
 using System.Net;
 using System.Net.Sockets;
-using Project_Interpolation;
 
 class Client
 {
-    public string sInput;
+    public string sInput, sOut;
     public void Execute()
     {
-
+        
         TcpClient clientSock;
         try
         {
@@ -25,16 +24,18 @@ class Client
         NetworkStream con = clientSock.GetStream();
         System.IO.StreamReader rd = new System.IO.StreamReader(con);
         System.IO.StreamWriter wr = new System.IO.StreamWriter(con);
+
        
-        InterpolatingData data1 = new InterpolatingData();
-        wr.WriteLine(data1.result);
+ 
+        wr.WriteLine(sInput);
+       // wr.WriteLine("hello yujuuuuuuuuuuuuuuu estas ahi?");
         wr.Flush();
 
         do
         {
-            sInput = rd.ReadLine();
+            sOut = rd.ReadLine();
         //    Console.WriteLine(sInput);
-        } while (sInput != null);
+        } while (sOut!= null);
         con.Close();
 
 
