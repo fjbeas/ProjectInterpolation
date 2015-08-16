@@ -10,7 +10,9 @@ namespace Project_Interpolation
     class InterpolatingData
     {
         public List<string> data = new List<string>();
-        public string num, op1, op2, result,lgr, cs, ec, dataResult;
+        public string num, op1, op2, result,lgr, cs, ec, dataResult,r1,r2;
+        public List<double> xx = new List<double>();
+        public int z;
 
         public void ReadDataPoints(string path)
         {
@@ -30,19 +32,19 @@ namespace Project_Interpolation
             }
             Read.Close();
 
-            //ERROR//
             Form1 format = new Form1();
             data.Add(op1); //Guardando si se desea lagrange 
             data.Add(op2); //Guardando si se desea Cubic
             data.Add(Convert.ToString(list.Count())); //Guardando # puntos
             InterpolatingData sp = new InterpolatingData();
             data.Add(num); //Guardando punto a evaluar
-            //ERROR//
+
 
             for (int k = 0; k < list.Count; k++)
             {
                 array1 = list[k].Split('\t');                  //Separando datos en un arreglo
                 x.Add(array1[0]);               //Almacenando valores de X
+                xx.Add(double.Parse(array1[0])); 
                 y.Add(array1[1]);               //Almacenando valores de Y
             }
 
@@ -78,6 +80,19 @@ namespace Project_Interpolation
             cs = list[1];
             ec = list[2];
 
+        }
+
+        public void range()
+        {
+            int range = 0;
+            double point = double.Parse(num);
+            for (int i = 0; point > xx[i]; i++)
+            {
+                range = i;
+            }
+
+            r1 = Convert.ToString(xx[range]);
+            r2 = Convert.ToString(xx[range + 1]);
         }
 
 
