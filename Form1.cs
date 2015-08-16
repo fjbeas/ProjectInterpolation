@@ -111,6 +111,11 @@ namespace Project_Interpolation
             //Leer datos archivo
             data.ReadDataPoints(filepath);
 
+        //    data.range();
+
+         //   MessageBox.Show(Convert.ToString(data.z));
+
+
             //Estableciendo conexion 
             Client_A CallServer = new Client_A();
             CallServer.data = data.result;
@@ -135,7 +140,8 @@ namespace Project_Interpolation
             {
                 GnuPlot.WriteLine("set term png");
                 GnuPlot.WriteLine(@"set output 'c:\users\franciscojavier\desktop\interpolation.png'");
-                GnuPlot.WriteLine("set xrange [-5:5]");
+                data.range();
+                GnuPlot.WriteLine("set xrange ["+data.r1+":"+data.r2+"]");
                 GnuPlot.WriteLine("");
                 GnuPlot.Plot(data.ec);
                 GnuPlot.WriteLine("quit");
