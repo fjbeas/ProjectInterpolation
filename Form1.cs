@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -13,7 +13,7 @@ namespace Project_Interpolation
 {
     public partial class Form1 : Form
     {
-        public string checkb1, checkb2, checkb3;
+        public string checkb;
         public string filepath, num;
         public Form1()
         {
@@ -47,42 +47,13 @@ namespace Project_Interpolation
 
         private void button1_Click(object sender, EventArgs e)
         {
-
-            string[] array1;
-            //Revisando checkboxes
-            checkb1 = (checkBox1.Checked == true) ? "lagrange" : "no";
-            checkb2 = (checkBox1.Checked == true) ? "cubic" : "no";
-            checkb3 = (checkBox1.Checked == true) ? "graficar" : "no";
-            
-
-           //Guardando ruta
-            filepath = openFileDialog1.FileName;
-
-           //Leer datos archivo
-          
-            InterpolatingData data = new InterpolatingData();
-            data.ReadDataPoints(filepath);
-
-          
-           // Client CallServer= new Client(); 
-           // CallServer.Execute();   
-
-            MessageBox.Show(data.result); // VERIFICANDO LO QUE SE ENVIA AL SERVER
-
-            /* GnuPlot Code
-            GnuPlot.WriteLine("set term png");
-            GnuPlot.WriteLine(@"set output 'c:\users\franciscojavier\desktop\interpolation.png'");
-            GnuPlot.Plot(spl.formula);
-            button1.Visible = false;
-            this.pictureBox1.Image = Image.FromFile("c:\users\franciscojavier\desktop\interpolation.png");*/
-
-
+            runExecute();
 
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
-            num = textBox1.Text;
+           
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -107,6 +78,73 @@ namespace Project_Interpolation
 
         private void pictureBox1_Click(object sender, EventArgs e)
         {
+
+        }
+
+        private void label4_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label3_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void groupBox1_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        public void runExecute()
+        {
+            //Revisando checkboxes
+            InterpolatingData data = new InterpolatingData();
+            data.op1 = (checkBox1.Checked == true) ? "lagrange" : "N/A";
+            data.op2 = (checkBox2.Checked == true) ? "cubic" : "N/A";
+            checkb = (checkBox3.Checked == true) ? "graficar" : "N/A";
+            data.num = textBox1.Text;
+
+            //Guardando ruta*/
+            filepath = openFileDialog1.FileName;
+
+            //Leer datos archivo
+            data.ReadDataPoints(filepath);
+
+            //Estableciendo conexion 
+            Client_A CallServer = new Client_A();
+            CallServer.data = data.result;
+            CallServer.ClientCon();
+
+            //Preparando resultados
+            data.dataResult = CallServer.data;
+
+            data.PrepareResults();
+
+            //ETAPA DE LA GRAFICA
+            if (data.op1 == "lagrange" && data.op2 == "no" && checkb == "graficar")
+            {
+                MessageBox.Show("No hay grafica disponible para el metodo lagrange");
+            }
+
+            label2.Text = "Lgr f(" + data.num + ") =" + data.lgr;
+            label5.Text = "CS f(" + data.num + ") =" + data.cs;
+            button1.Visible = false;
+
+            if (checkb == "graficar" && data.op2 == "cubic")
+            {
+                GnuPlot.WriteLine("set term png");
+                GnuPlot.WriteLine(@"set output 'c:\users\franciscojavier\desktop\interpolation.png'");
+                GnuPlot.WriteLine("set xrange [-5:5]");
+                GnuPlot.WriteLine("");
+                GnuPlot.Plot(data.ec);
+                GnuPlot.WriteLine("quit");
+                System.Threading.Thread.Sleep(1000);
+                filepath = (@"C:\Users\FranciscoJavier\Desktop\interpolation.png");
+                this.pictureBox1.Image = Image.FromFile(filepath);
+            }
+
+            MessageBox.Show("La ecuación es: " + data.ec);
 
         }
     }
