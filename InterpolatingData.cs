@@ -10,7 +10,7 @@ namespace Project_Interpolation
     class InterpolatingData
     {
         public List<string> data = new List<string>();
-        public string result, num;
+        public string num, op1, op2, result,lgr, cs, ec, dataResult;
 
         public void ReadDataPoints(string path)
         {
@@ -32,11 +32,11 @@ namespace Project_Interpolation
 
             //ERROR//
             Form1 format = new Form1();
-            data.Add(format.checkb1); //Guardando si se desea lagrange 
-            data.Add(format.checkb2); //Guardando si se desea Cubic
+            data.Add(op1); //Guardando si se desea lagrange 
+            data.Add(op2); //Guardando si se desea Cubic
             data.Add(Convert.ToString(list.Count())); //Guardando # puntos
             InterpolatingData sp = new InterpolatingData();
-            data.Add(sp.num); //Guardando punto a evaluar
+            data.Add(num); //Guardando punto a evaluar
             //ERROR//
 
             for (int k = 0; k < list.Count; k++)
@@ -61,9 +61,25 @@ namespace Project_Interpolation
             {
                 builder.Append(value).Append("|"); //separando elementos por |
             }
-            result = builder.ToString(); 
+
+           
+            result= builder.ToString(); 
 
 
         }
+
+        public void PrepareResults()
+        {
+            string[] array1;
+            array1 = dataResult.Split('|'); // llamando metodo split
+            List<string> list = new List<string>(array1);
+
+            lgr = list[0];
+            cs = list[1];
+            ec = list[2];
+
+        }
+
+
     }
 }
