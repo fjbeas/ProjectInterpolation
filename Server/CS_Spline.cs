@@ -123,10 +123,10 @@ namespace CubicSplineInterpolation
                     if ((t >= x[i - 1]) && (t <= x[i]))
                     {
 
-                        formula = ((float)(d2x[i - 1] / (6 * (x[i] - x[i - 1]))) + "*(" + x[i] + " - x)**3 + " +
-                                            (float)(d2x[i] / (6 * (x[i] - x[i - 1]))) + "*(x " + (float)((-1) * x[i - 1]) + ")**3 + " +
-                                            (float)(fx[i - 1] / (x[i] - x[i - 1]) - (float)((d2x[i - 1] * (x[i] - x[i - 1])) / 6)) + " * (" + (x[i] * (-1)) + "* x) + " +
-                                            (float)((fx[i] / (x[i] - x[i - 1])) - (float)((d2x[i] * (x[i] - x[i - 1])) / 6)) + " *(x " + ((-1) * x[i - 1]) + ")");
+                        formula = ((float)(d2x[i-1]/(6*(x[i]-x[i-1]))) + "*(" + x[i] +" - x)**3 + " + 
+							            (float)(d2x[i]/(6*(x[i]-x[i-1])))+ "*(x -" + (x[i-1]) + ")**3 + " + 
+							            (float)(fx[i-1]/(x[i]-x[i-1]) - ((d2x[i-1]*(x[i]-x[i-1])) / 6)) + " * (" +(x[i]) + "- x) + " + 
+							            (float)((fx[i]/(x[i]-x[i-1])) - ((d2x[i]*(x[i]-x[i-1]))/6)) + " *(x- " + (x[i-1]) + ")");
             
                         result = (float)(((d2x[i - 1] / (6 * (x[i] - x[i - 1]))) * Math.Pow((x[i] - t), 3)) +
                                            ((d2x[i] / (6 * (x[i] - x[i - 1]))) * Math.Pow((t - x[i - 1]), 3)) +
