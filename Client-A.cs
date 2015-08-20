@@ -12,7 +12,7 @@ namespace Project_Interpolation
 {
     class Client_A
     {
-        public string sInput,data;
+        public string data;
         public void ClientCon()
         {
             TcpClient clientSock = null;
