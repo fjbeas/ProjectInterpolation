@@ -12,8 +12,7 @@ namespace Project_Interpolation
         public List<string> data = new List<string>();
         public string num, op1, op2, result,lgr, cs, ec, dataResult,r1,r2;
         public List<double> xx = new List<double>();
-        public int z;
-
+  
         public void ReadDataPoints(string path)
         {
             List<string> list = new List<string>();
