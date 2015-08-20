@@ -47,7 +47,9 @@ namespace Project_Interpolation
 
         private void button1_Click(object sender, EventArgs e)
         {
+            
             runExecute();
+            Form1.ActiveForm.Size = new Size(Form1.ActiveForm.Size.Width, 580);
 
         }
 
@@ -111,11 +113,6 @@ namespace Project_Interpolation
             //Leer datos archivo
             data.ReadDataPoints(filepath);
 
-        //    data.range();
-
-         //   MessageBox.Show(Convert.ToString(data.z));
-
-
             //Estableciendo conexion 
             Client_A CallServer = new Client_A();
             CallServer.data = data.result;
@@ -142,10 +139,10 @@ namespace Project_Interpolation
                 GnuPlot.WriteLine(@"set output 'c:\users\franciscojavier\desktop\interpolation.png'");
                 data.range();
                 GnuPlot.WriteLine("set xrange ["+data.r1+":"+data.r2+"]");
-                GnuPlot.WriteLine("");
+               // GnuPlot.WriteLine("");
                 GnuPlot.Plot(data.ec);
                 GnuPlot.WriteLine("quit");
-                System.Threading.Thread.Sleep(1000);
+                System.Threading.Thread.Sleep(500);
                 filepath = (@"C:\Users\FranciscoJavier\Desktop\interpolation.png");
                 this.pictureBox1.Image = Image.FromFile(filepath);
             }
