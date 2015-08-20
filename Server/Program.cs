@@ -14,7 +14,7 @@ class Server
     {
         int points;
         double fx;
-        string entrada, entrada2, lgr, cubic, result;
+        string entrada, lgr, cubic, result;
         string[] array1;
         List<double> x = new List<double>();
         List<double> y = new List<double>();
